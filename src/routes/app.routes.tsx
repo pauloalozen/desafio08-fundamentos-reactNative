@@ -25,6 +25,12 @@ const AppRoutes: React.FC = () => (
         headerShown: true,
         headerTransparent: true,
         headerTitle: () => <Image source={Logo} />,
+        headerTitleStyle: {
+          flex: 1,
+          justifyContent: 'center',
+          alignSelf: 'center',
+          alignItems: 'center',
+        },
       }}
       name="Dashboard"
       component={Dashboard}

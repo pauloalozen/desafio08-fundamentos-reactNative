@@ -1,5 +1,7 @@
 import React, { useState, useMemo } from 'react';
 
+import { Alert } from 'react-native';
+
 import { useNavigation } from '@react-navigation/native';
 
 import FeatherIcon from 'react-native-vector-icons/Feather';
@@ -9,6 +11,7 @@ import {
   CartButton,
   CartButtonText,
   CartTotalPrice,
+  ClearCartButton,
 } from './styles';
 
 import formatValue from '../../utils/formatValue';
@@ -19,21 +22,38 @@ import { useCart } from '../../hooks/cart';
 // Navegação no clique do TouchableHighlight
 
 const FloatingCart: React.FC = () => {
-  const { products } = useCart();
+  const { products, deleteCart } = useCart();
 
   const navigation = useNavigation();
 
   const cartTotal = useMemo(() => {
-    // TODO RETURN THE SUM OF THE PRICE FROM ALL ITEMS IN THE CART
+    let totalPrice = 0;
 
-    return formatValue(0);
+    products.forEach(item => {
+      totalPrice += item.quantity * item.price;
+    });
+
+    return formatValue(totalPrice);
   }, [products]);
 
   const totalItensInCart = useMemo(() => {
-    // TODO RETURN THE SUM OF THE QUANTITY OF THE PRODUCTS IN THE CART
+    let totalItens = 0;
 
-    return 0;
+    products.forEach(item => {
+      totalItens += item.quantity;
+    });
+
+    return totalItens;
   }, [products]);
+
+  const clearCart = async (): Promise<void> => {
+    try {
+      await deleteCart();
+      Alert.alert('Aviso', 'Carrinho eliminado com sucesso!');
+    } catch (error) {
+      Alert.alert('Erro', 'Carrinho não eliminado.');
+    }
+  };
 
   return (
     <Container>
@@ -44,7 +64,7 @@ const FloatingCart: React.FC = () => {
         <FeatherIcon name="shopping-cart" size={24} color="#fff" />
         <CartButtonText>{`${totalItensInCart} itens`}</CartButtonText>
       </CartButton>
-
+      <ClearCartButton onPress={clearCart}>Excluir Carrinho</ClearCartButton>
       <CartPricing>
         <CartTotalPrice>{cartTotal}</CartTotalPrice>
       </CartPricing>

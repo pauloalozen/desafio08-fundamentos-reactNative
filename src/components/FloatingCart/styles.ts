@@ -39,3 +39,10 @@ export const CartButtonText = styled.Text`
   flex: 1;
   margin-right: auto;
 `;
+
+export const ClearCartButton = styled.Text`
+  flex: 1;
+  color: #fff;
+  font-weight: bold;
+  margin-right: 20px;
+`;

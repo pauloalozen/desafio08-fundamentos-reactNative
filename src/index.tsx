@@ -6,9 +6,12 @@ import Routes from './routes';
 import AppContainer from './hooks';
 
 const App: React.FC = () => (
-  <View style={{ backgroundColor: '#312e38', flex: 1 }}>
+  <View style={{ backgroundColor: '#E5E5E5', flex: 1 }}>
     <AppContainer>
-      <StatusBar barStyle="light-content" backgroundColor="#312e38" />
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor="rgba(0, 0, 0, 0.1)"
+      />
       <Routes />
     </AppContainer>
   </View>
